@@ -1,0 +1,14 @@
+[
+    {
+      "nama": "terlaris",
+      "harga": 3000,
+      "deskripsi": "",
+      "gambar": "logo.jpeg"
+    },
+    {
+      "nama": "Bakso Tusuk",
+      "harga": 5000,
+      "deskripsi": "",
+      "gambar": "logo.jpeg"
+    }
+  ]
