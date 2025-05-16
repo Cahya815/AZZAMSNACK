@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AZZAM SNACK</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Potta+One&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="navbar bg-body-tertiary ">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#"></a>
+          <form class="d-flex" role="search" onsubmit="return false;">
+            <input class="form-control me-2" id="searchInput" type="search" placeholder="Cari snack..." aria-label="Search">
+            <button class="btn btn-outline-success" type="submit" id="searchBtn">Cari</button>
+          </form>
+        </div>
+      </nav>
+
+
+    <div class="header">
+        <div class="text">AZZAM SNACK</div>
+        <img src="Group 6.png" alt="">
+        
+    </div>
+    
+    <!-- kategori -->
+
+    <h2 class="text-center">Kategori</h2>
+     <div class="kategori">
+      <div class="kategori1">
+        <img src="Ellipse 3.png" alt="Snack 1" class="gambar-snack">
+        <button class="button1" onclick="location.href='#kategori1'">Snack Box</button>
+      </div>
+
+      <div class="kategori2">
+        <img src="Ellipse 4.png" alt="Snack 1" class="gambar-snack">
+        <button class="button1" onclick="location.href='#kategori2'">SNACK</button>
+      </div>
+
+      <div class="kategori3">
+        <img src="Ellipse 5.png" alt="Snack 1" class="gambar-snack">
+        <button class="button1" onclick="location.href='#kategori3'">Gurih</button>
+      </div>
+     </div>
+
+    
+      <div id="kategori0" class="TERLARIS"></div>  
+        <h2 class="text-center">Terlaris 🔥</h2>
+        <div class="produk-container" id="terlaris-list"></div>
+    
+        <script>
+          
+          let allSnacks = [];
+          fetch('terlaris.json')
+            .then(res => res.json())
+            .then(data => {
+              allSnacks = data;
+              const container = document.getElementById('terlaris-list');
+              data.forEach(snack => {
+                const card = document.createElement('div');
+                card.className = 'produk';
+                card.setAttribute("data-nama", snack.nama.toLowerCase());
+                card.innerHTML = `
+                  <img src="${snack.gambar}" alt="${snack.nama}">
+                  <h2>${snack.nama}</h2>
+                  <p>Harga: Rp ${snack.harga}</p>
+                  <p>${snack.deskripsi}</p>
+                `;
+                card.addEventListener('click', () => {
+            window.location.href = `detail.html?nama=${encodeURIComponent(snack.nama)}`;
+          });
+
+                container.appendChild(card);
+              });
+              
+
+      })
+      .catch(err => console.error('Gagal load data:', err));
+      
+   </script>
+      
+    
+   
+  <!-- Snack box -->
+  <div id="kategori1" class="SEMUA-PRODUK"></div>  
+  <h2 class="text-center">Snackbox</h2>
+  <div class="produk-container" id="snackbox-list"></div>
+
+  <script>
+    fetch('snackbox.json')
+      .then(res => res.json())
+      .then(data => {
+        allSnacks = data;
+        const container = document.getElementById('snackbox-list');
+        data.forEach(snack => {
+          const card = document.createElement('div');
+          card.className = 'produk';
+          card.setAttribute("data-nama", snack.nama.toLowerCase());
+          card.innerHTML = `
+            <img src="${snack.gambar}" alt="${snack.nama}">
+            <h2>${snack.nama}</h2>
+            <p>Harga: Rp ${snack.harga}</p>
+            <p>${snack.deskripsi}</p>
+          `;
+          card.addEventListener('click', () => {
+        window.location.href = `detail.html?nama=${encodeURIComponent(snack.nama)}`;
+      });
+
+      container.appendChild(card);
+    });
+  })
+  .catch(err => console.error('Gagal load data:', err));
+  </script>
+   
+   <!-- semua produk -->
+    <div id="kategori2" class="SEMUA-PRODUK"></div>  
+      <h2 class="text-center">Semua Snack</h2>
+      <div class="produk-container" id="produk-list"></div>
+
+      <script>
+        fetch('produk.json')
+          .then(res => res.json())
+          .then(data => {
+            allSnacks = data;
+            const container = document.getElementById('produk-list');
+            data.forEach(snack => {
+              const card = document.createElement('div');
+              card.className = 'produk';
+              card.setAttribute("data-nama", snack.nama.toLowerCase());
+              card.innerHTML = `
+                <img src="${snack.gambar}" alt="${snack.nama}">
+                <h2>${snack.nama}</h2>
+                <p>Harga: Rp ${snack.harga}</p>
+                <p>${snack.deskripsi}</p>
+              `;
+              card.addEventListener('click', () => {
+        window.location.href = `detail.html?nama=${encodeURIComponent(snack.nama)}`;
+      });
+
+      container.appendChild(card);
+    });
+  })
+  .catch(err => console.error('Gagal load data:', err));
+  </script>
+      
+   <script>
+    const searchInput = document.getElementById("searchInput");
+  const searchBtn = document.getElementById("searchBtn");
+
+  function cariProduk() {
+    const query = searchInput.value.toLowerCase();
+    const produkList = document.querySelectorAll("#produk-list .produk");
+
+    let found = false;
+    produkList.forEach(card => {
+      const nama = card.getAttribute("data-nama");
+      if (!found && nama.includes(query)) {
+        card.scrollIntoView({ behavior: "smooth", block: "center" });
+        found = true;
+      }
+    });
+
+    if (!found) {
+      alert("Produk tidak ditemukan!");
+    }
+  }
+
+  searchInput.addEventListener("input", cariProduk);
+  searchBtn.addEventListener("click", cariProduk);
+</script>
+  
+
+
+      
+</body>
+</html>

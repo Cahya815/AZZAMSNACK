@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="detail-container"></div>
+  
+    
+  </body>
+  <script>
+    // Ambil parameter nama dari URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const nama = urlParams.get('nama');
+  
+    fetch('produk.json')
+      .then(res => res.json())
+      .then(data => {
+        // Normalisasi nama agar tidak masalah kapitalisasi/spasi
+        const produk = data.find(p => p.nama.trim().toLowerCase() === nama.trim().toLowerCase());
+  
+        const container = document.getElementById('detail-container');
+  
+        if (produk) {
+          container.innerHTML = `
+          <div class ="card">
+          <h2 class="detail-nama">${produk.nama}</h2>
+        <img src="${produk.gambar}" alt="${produk.nama}" class="detail-gambar">
+        <p class="detail-harga">Harga: Rp ${produk.harga}</p>
+        <p class="detail-deskripsi">${produk.deskripsi}</p>
+            </div>
+            <button onclick="window.location.href='index.html'" class="btn-kembali">← Kembali ke Beranda</button>
+          `;
+        } else {
+          container.innerHTML = `<p style="color:red;">Produk tidak ditemukan: "${nama}"</p>`;
+          console.log("DEBUG: Nama dari URL =", nama);
+          console.log("DEBUG: Data dalam JSON =", data.map(p => p.nama));
+        }
+      })
+      .catch(err => console.error('Gagal mengambil data:', err));
+      
+  </script>
+
+
+
+<style>
+ body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f5f5f5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* Container isi produk */
+.detail-produk {
+  text-align: center;
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 90%;
+}
+
+/* Styling bagian-bagian di dalamnya */
+.detail-nama {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.detail-gambar {
+  width: 100%;
+  max-width: 300px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.detail-harga {
+  font-size: 20px;
+  font-weight: 600;
+  color: #e67e22;
+  margin-bottom: 10px;
+}
+
+.detail-deskripsi {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.6;
+}
+
+.btn-kembali {
+  display: inline-block;
+  margin: 20px;
+  padding: 10px 20px;
+  background-color: #f04e4e;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-kembali:hover {
+  background-color: #c43c3c;
+}
+
+</style>
+
+
+  
+  
+</html>

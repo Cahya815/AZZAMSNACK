@@ -1,0 +1,40 @@
+[
+  {
+    "nama": "terlaris",
+    "harga": 3000,
+    "deskripsi": "Snack terlaris yang sudah terjual ribuan pcs ",
+    "gambar": "logo.jpeg"
+  },
+    {
+      "nama": "Tahu Goreng",
+      "harga": 3000,
+      "deskripsi": "",
+      "gambar": "logo.jpeg"
+    },
+    {
+      "nama": "Bakso Tusuk",
+      "harga": 5000,
+      "deskripsi": "",
+      "gambar": "logo.jpeg"
+    },
+    {
+      "nama": "Sosis Basah",
+      "harga": 4000,
+      "deskripsi": "Sosis dengan bumbu manis gurih",
+      "gambar": "logo.jpeg"
+    },
+    {
+      "nama": "Keripik Tempe",
+      "harga": 3500,
+      "deskripsi": "Keripik tempe renyah khas rumahan",
+      "gambar": "logo.jpeg"
+    },
+    {
+      "nama": "simbabwe",
+      "harga": 5000,
+      "deskripsi": "",
+      "gambar": "logo.jpeg"
+    }
+    
+  ]
+  
