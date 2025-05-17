@@ -1,10 +1,10 @@
 [
-  {
-    "nama": "terlaris",
-    "harga": 3000,
-    "deskripsi": "Snack terlaris yang sudah terjual ribuan pcs ",
-    "gambar": "logo.jpeg"
-  },
+      {
+        "nama": "terlaris",
+        "harga": 3000,
+        "deskripsi": "Snack terlaris yang sudah terjual ribuan pcs ",
+        "gambar": "logo.jpeg"
+      },
     {
       "nama": "Tahu Goreng",
       "harga": 3000,
