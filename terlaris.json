@@ -1,15 +1,15 @@
 [
     
     {
-      "nama": "Bakso Tusuk",
+      "nama": "Lapis Mawar",
       "harga": 5000,
       "deskripsi": "",
-      "gambar": "logo.jpeg"
+      "gambar": "/gambar/LapisMawar.jpeg"
     },
     {
-      "nama": "Bakso Kambing",
+      "nama": "Risol Mayo",
       "harga": 10000,
       "deskripsi": "",
-      "gambar": "logo.jpeg"
+      "gambar": "/gambar/RisolMayo.jpeg"
     }
   ]

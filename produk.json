@@ -1,39 +1,52 @@
 [
-      {
-        "nama": "terlaris",
-        "harga": 3000,
-        "deskripsi": "Snack terlaris yang sudah terjual ribuan pcs ",
-        "gambar": "logo.jpeg"
-      },
+  
     {
-      "nama": "Tahu Goreng",
+      "nama": "Arem Mini",
       "harga": 3000,
       "deskripsi": "",
-      "gambar": "logo.jpeg"
+      "gambar": "/gambar/AremMini.jpeg"
     },
     {
-      "nama": "Bakso Tusuk",
+      "nama": "Semar Mendem",
       "harga": 5000,
       "deskripsi": "",
-      "gambar": "logo.jpeg"
+      "gambar": "/gambar/Semar.jpeg"
     },
     {
-      "nama": "Sosis Basah",
-      "harga": 4000,
-      "deskripsi": "Sosis dengan bumbu manis gurih",
-      "gambar": "logo.jpeg"
-    },
-    {
-      "nama": "Keripik Tempe",
-      "harga": 3500,
-      "deskripsi": "Keripik tempe renyah khas rumahan",
-      "gambar": "logo.jpeg"
-    },
-    {
-      "nama": "simbabwe",
+      "nama": "Lapis Mawar",
       "harga": 5000,
       "deskripsi": "",
-      "gambar": "logo.jpeg"
+      "gambar": "/gambar/LapisMawar.jpeg"
+    },
+    {
+      "nama": "Risol Mayo",
+      "harga": 10000,
+      "deskripsi": "",
+      "gambar": "/gambar/RisolMayo.jpeg"
+    },
+    {
+      "nama": "Lapis Mawar",
+      "harga": 5000,
+      "deskripsi": "",
+      "gambar": "/gambar/LapisMawar.jpeg"
+    },
+    {
+      "nama": "Risol Mayo",
+      "harga": 10000,
+      "deskripsi": "",
+      "gambar": "/gambar/RisolMayo.jpeg"
+    },
+    {
+      "nama": "5 Macam",
+      "harga": 3000,
+      "deskripsi": "",
+      "gambar": "/gambar/images.jpg"
+    },
+    {
+      "nama": "4 Macam",
+      "harga": 5000,
+      "deskripsi": "",
+      "gambar": "/gambar/images.jpg"
     }
     
   ]
