@@ -3,12 +3,12 @@
       "nama": "5 Macam",
       "harga": 3000,
       "deskripsi": "",
-      "gambar": "/gambar/images.jpg"
+      "gambar": "gambar/images.jpg"
     },
     {
       "nama": "4 Macam",
       "harga": 5000,
       "deskripsi": "",
-      "gambar": "/gambar/images.jpg"
+      "gambar": "gambar/images.jpg"
     }
   ]

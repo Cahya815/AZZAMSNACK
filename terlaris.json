@@ -4,12 +4,12 @@
       "nama": "Lapis Mawar",
       "harga": 5000,
       "deskripsi": "",
-      "gambar": "/gambar/LapisMawar.jpeg"
+      "gambar": "gambar/LapisMawar.jpeg"
     },
     {
       "nama": "Risol Mayo",
       "harga": 10000,
       "deskripsi": "",
-      "gambar": "/gambar/RisolMayo.jpeg"
+      "gambar": "gambar/RisolMayo.jpeg"
     }
   ]
