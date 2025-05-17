@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+   
 </head>
 <body>
     <div id="detail-container"></div>
   
-    
+   
   </body>
   <script>
+    
     // Ambil parameter nama dari URL
     const urlParams = new URLSearchParams(window.location.search);
     const nama = urlParams.get('nama');
@@ -31,7 +33,7 @@
         <p class="detail-harga">Harga: Rp ${produk.harga}</p>
         <p class="detail-deskripsi">${produk.deskripsi}</p>
             </div>
-            <button onclick="window.location.href='index.html'" class="btn-kembali">← Kembali ke Beranda</button>
+             
           `;
         } else {
           container.innerHTML = `<p style="color:red;">Produk tidak ditemukan: "${nama}"</p>`;
@@ -42,8 +44,12 @@
       .catch(err => console.error('Gagal mengambil data:', err));
       
   </script>
-
-
+  
+  <button onclick="window.location.href='index.html'" class="btn-kembali">← Kembali ke Beranda</button>
+  <button onclick="window.location.href='https://wa.me/6281556855474'" class="btn-kembali-wa">
+    💬 Pesan Sekarang 
+  </button>
+  
 
 <style>
  body {
@@ -52,6 +58,7 @@
   padding: 0;
   background-color: #f5f5f5;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
@@ -59,6 +66,8 @@
 
 /* Container isi produk */
 .detail-produk {
+ 
+  gap: 20px; /* beri jarak antar item */
   text-align: center;
   background-color: #ffffff;
   padding: 30px;
@@ -98,6 +107,20 @@
 
 .btn-kembali {
   display: inline-block;
+  margin: 10px;
+  padding: 10px 20px;
+  background-color: #f04e4e;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+  
+ 
+}
+
+.btn-kembali-wa {
+  display: inline-block;
   margin: 20px;
   padding: 10px 20px;
   background-color: #f04e4e;
@@ -106,7 +129,9 @@
   border-radius: 8px;
   font-weight: bold;
   transition: background-color 0.3s ease;
+  background-color: green;
 }
+
 
 .btn-kembali:hover {
   background-color: #c43c3c;
