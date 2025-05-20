@@ -1,0 +1,53 @@
+[
+  
+    {
+      "nama": "Arem Mini",
+      "harga": 3000,
+      "deskripsi": "",
+      "gambar": "gambar/AremMini.jpeg"
+    },
+    {
+      "nama": "Semar Mendem",
+      "harga": 5000,
+      "deskripsi": "",
+      "gambar": "gambar/Semar.jpeg"
+    },
+    {
+      "nama": "Lapis Mawar",
+      "harga": 5000,
+      "deskripsi": "",
+      "gambar": "gambar/LapisMawar.jpeg"
+    },
+    {
+      "nama": "Risol Mayo",
+      "harga": 10000,
+      "deskripsi": "",
+      "gambar": "gambar/RisolMayo.jpeg"
+    },
+    {
+      "nama": "Lapis Mawar",
+      "harga": 5000,
+      "deskripsi": "",
+      "gambar": "gambar/LapisMawar.jpeg"
+    },
+    {
+      "nama": "Risol Mayo",
+      "harga": 10000,
+      "deskripsi": "",
+      "gambar": "gambar/RisolMayo.jpeg"
+    },
+    {
+      "nama": "5 Macam",
+      "harga": 3000,
+      "deskripsi": "",
+      "gambar": "gambar/images.jpg"
+    },
+    {
+      "nama": "4 Macam",
+      "harga": 5000,
+      "deskripsi": "",
+      "gambar": "gambar/images.jpg"
+    }
+    
+  ]
+  
