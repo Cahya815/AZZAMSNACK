@@ -53,126 +53,72 @@
       <div id="kategori0" class="TERLARIS"></div>  
         <h2 class="text-center">Terlaris 🔥</h2>
         <div class="produk-container" id="terlaris-list"></div>
-    
+     
         <script>
           
-          let allSnacks = [];
-          fetch('terlaris.json')
-            .then(res => res.json())
-            .then(data => {
-              allSnacks = data;
-              const container = document.getElementById('terlaris-list');
-              data.forEach(snack => {
-                const card = document.createElement('div');
-                card.className = 'produk';
-                card.setAttribute("data-nama", snack.nama.toLowerCase());
-                card.innerHTML = `
-                  <img src="${snack.gambar}" alt="${snack.nama}">
-                  <h2>${snack.nama}</h2>
-                  <p>Harga: Rp ${snack.harga}</p>
-                  <p>${snack.deskripsi}</p>
-                `;
-                card.addEventListener('click', () => {
-            window.location.href = `detail.html?nama=${encodeURIComponent(snack.nama)}`;
-          });
+          
+          const SHEET_ID = "1DfDp2TDoKPs29zgp80vnC6afVIox7ik3wt_RaSJx6MU"; // ganti dengan sheet ID kamu
 
-                container.appendChild(card);
-              });
-              
+function fetchSheetData(sheetName) {
+  const url = `https://opensheet.elk.sh/${SHEET_ID}/${sheetName}`;
+  return fetch(url).then(res => res.json());
+}
 
-      })
-      .catch(err => console.error('Gagal load data:', err));
-      
-   </script>
-      
-    
-   
-  <!-- Snack box -->
-  <div id="kategori1" class="SEMUA-PRODUK"></div>  
-  <h2 class="text-center">Snackbox</h2>
-  <div class="produk-container" id="snackbox-list"></div>
+function buatCard(snack) {
+  const card = document.createElement("div");
+  card.className = "produk";
+  card.setAttribute("data-nama", snack.nama.toLowerCase());
+  card.innerHTML = `
+    <img src="${snack.gambar}" alt="${snack.nama}">
+    <h2>${snack.nama}</h2>
+    <p>Harga: Rp ${Number(snack.harga).toLocaleString()}</p>
+    <p>${snack.deskripsi}</p>
+  `;
+  card.addEventListener('click', () => {
+    window.location.href = `detail.html?nama=${encodeURIComponent(snack.nama)}`;
+  });
+  return card;
+}
 
-  <script>
-    fetch('snackbox.json')
-      .then(res => res.json())
-      .then(data => {
-        allSnacks = data;
-        const container = document.getElementById('snackbox-list');
-        data.forEach(snack => {
-          const card = document.createElement('div');
-          card.className = 'produk';
-          card.setAttribute("data-nama", snack.nama.toLowerCase());
-          card.innerHTML = `
-            <img src="${snack.gambar}" alt="${snack.nama}">
-            <h2>${snack.nama}</h2>
-            <p>Harga: Rp ${snack.harga}</p>
-            <p>${snack.deskripsi}</p>
-          `;
-          card.addEventListener('click', () => {
-        window.location.href = `detail.html?nama=${encodeURIComponent(snack.nama)}`;
-      });
-
+function tampilkanProduk(sheetName, containerId) {
+  fetchSheetData(sheetName).then(data => {
+    const container = document.getElementById(containerId);
+    data.forEach(snack => {
+      const card = buatCard(snack);
       container.appendChild(card);
     });
-  })
-  .catch(err => console.error('Gagal load data:', err));
-  </script>
-   
-   <!-- semua produk -->
-    <div id="kategori2" class="SEMUA-PRODUK"></div>  
-      <h2 class="text-center">Semua Snack</h2>
-      <div class="produk-container" id="produk-list"></div>
+  }).catch(err => console.error(`Gagal load data ${sheetName}:`, err));
+}
 
-      <script>
-        fetch('produk.json')
-          .then(res => res.json())
-          .then(data => {
-            allSnacks = data;
-            const container = document.getElementById('produk-list');
-            data.forEach(snack => {
-              const card = document.createElement('div');
-              card.className = 'produk';
-              card.setAttribute("data-nama", snack.nama.toLowerCase());
-              card.innerHTML = `
-                <img src="${snack.gambar}" alt="${snack.nama}">
-                <h2>${snack.nama}</h2>
-                <p>Harga: Rp ${snack.harga}</p>
-                <p>${snack.deskripsi}</p>
-              `;
-              card.addEventListener('click', () => {
-        window.location.href = `detail.html?nama=${encodeURIComponent(snack.nama)}`;
-      });
+// Panggil fungsi untuk tiap kategori
+tampilkanProduk("Terlaris", "terlaris-list");
+tampilkanProduk("Snackbox", "snackbox-list");
+tampilkanProduk("Produk", "produk-list"); // Semua snack
 
-      container.appendChild(card);
-    });
-  })
-  .catch(err => console.error('Gagal load data:', err));
-  </script>
-      
-   <script>
-    const searchInput = document.getElementById("searchInput");
-  const searchBtn = document.getElementById("searchBtn");
+// Fungsi search
+const searchInput = document.getElementById("searchInput");
+const searchBtn = document.getElementById("searchBtn");
 
-  function cariProduk() {
-    const query = searchInput.value.toLowerCase();
-    const produkList = document.querySelectorAll("#produk-list .produk");
+function cariProduk() {
+  const query = searchInput.value.toLowerCase();
+  const produkList = document.querySelectorAll("#produk-list .produk");
 
-    let found = false;
-    produkList.forEach(card => {
-      const nama = card.getAttribute("data-nama");
-      if (!found && nama.includes(query)) {
-        card.scrollIntoView({ behavior: "smooth", block: "center" });
-        found = true;
-      }
-    });
-
-    if (!found) {
-      alert("Produk tidak ditemukan!");
+  let found = false;
+  produkList.forEach(card => {
+    const nama = card.getAttribute("data-nama");
+    if (!found && nama.includes(query)) {
+      card.scrollIntoView({ behavior: "smooth", block: "center" });
+      found = true;
     }
-  }
+  });
 
-  searchInput.addEventListener("input", cariProduk);
-  searchBtn.addEventListener("click", cariProduk);
+  if (!found) {
+    alert("Produk tidak ditemukan!");
+  }
+}
+
+searchInput.addEventListener("input", cariProduk);
+searchBtn.addEventListener("click", cariProduk);
 </script>
   
 
