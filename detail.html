@@ -19,7 +19,12 @@
     const SHEET_ID = "1DfDp2TDoKPs29zgp80vnC6afVIox7ik3wt_RaSJx6MU";
   
     function fetchSheet(sheetName) {
-      return fetch(`https://opensheet.elk.sh/${SHEET_ID}/${sheetName}`).then(res => res.json());
+      const url = `https://opensheet.elk.sh/${SHEET_ID}/${sheetName}`;
+      console.log("Mem-fetch:", url); // 🔍 Log URL
+      return fetch(url).then(res => {
+        if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+        return res.json();
+      });
     }
   
     Promise.all([
@@ -29,6 +34,8 @@
     ])
     .then(([terlaris, snackbox, produk]) => {
       const semua = [...terlaris, ...snackbox, ...produk];
+      console.log("Data semua produk:", semua); // 🔍 Log data
+  
       const item = semua.find(p => p.nama.trim().toLowerCase() === nama.trim().toLowerCase());
       const container = document.getElementById("detail-container");
   
@@ -43,13 +50,16 @@
         `;
       } else {
         container.innerHTML = `<p style="color:red;">Produk tidak ditemukan: ${nama}</p>`;
+        console.log("Nama dari URL:", nama); // 🔍 Nama query
+        console.log("Semua nama produk:", semua.map(p => p.nama));
       }
     })
     .catch(err => {
-      console.error("Gagal fetch data:", err);
+      console.error("❌ Gagal fetch data:", err); // ❌ Error detail
       document.getElementById("detail-container").innerHTML = "<p style='color:red;'>Gagal mengambil data</p>";
     });
   </script>
+  
   
 
   <style>
