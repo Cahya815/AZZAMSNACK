@@ -66,10 +66,7 @@
         
      
         <script>
-          
-          
           const SHEET_ID = "1DfDp2TDoKPs29zgp80vnC6afVIox7ik3wt_RaSJx6MU"; // ganti dengan sheet ID kamu
-
 function fetchSheetData(sheetName) {
   const url = `https://opensheet.elk.sh/${SHEET_ID}/${sheetName}`;
   return fetch(url).then(res => res.json());
