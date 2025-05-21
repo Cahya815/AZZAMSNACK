@@ -17,41 +17,40 @@
     const urlParams = new URLSearchParams(window.location.search);
     const nama = urlParams.get('nama');
     const SHEET_ID = "1DfDp2TDoKPs29zgp80vnC6afVIox7ik3wt_RaSJx6MU";
-
-    function fetchSheetData(sheetName) {
-      const url = `https://opensheet.elk.sh/${SHEET_ID}/${sheetName}`;
-      return fetch(url).then(res => res.json());
+  
+    function fetchSheet(sheetName) {
+      return fetch(`https://opensheet.elk.sh/${SHEET_ID}/${sheetName}`).then(res => res.json());
     }
-
-    // Ambil data dari semua sheet yang mungkin mengandung produk
+  
     Promise.all([
-      fetchSheetData("Terlaris"),
-      fetchSheetData("Snackbox"),
-      fetchSheetData("Produk")
+      fetchSheet("Terlaris"),
+      fetchSheet("Snackbox"),
+      fetchSheet("Produk")
     ])
     .then(([terlaris, snackbox, produk]) => {
-      const semuaData = [...terlaris, ...snackbox, ...produk];
-
-      const produkDitemukan = semuaData.find(p => p.nama.trim().toLowerCase() === nama.trim().toLowerCase());
-      const container = document.getElementById('detail-container');
-
-      if (produkDitemukan) {
+      const semua = [...terlaris, ...snackbox, ...produk];
+      const item = semua.find(p => p.nama.trim().toLowerCase() === nama.trim().toLowerCase());
+      const container = document.getElementById("detail-container");
+  
+      if (item) {
         container.innerHTML = `
-          <div class="card">
-            <h2 class="detail-nama">${produkDitemukan.nama}</h2>
-            <img src="${produkDitemukan.gambar}" alt="${produkDitemukan.nama}" class="detail-gambar">
-            <p class="detail-harga">Harga: Rp ${Number(produkDitemukan.harga).toLocaleString()}</p>
-            <p class="detail-deskripsi">${produkDitemukan.deskripsi}</p>
+          <div class="detail-produk">
+            <h2 class="detail-nama">${item.nama}</h2>
+            <img src="${item.gambar}" class="detail-gambar" alt="${item.nama}">
+            <p class="detail-harga">Harga: Rp ${Number(item.harga).toLocaleString()}</p>
+            <p class="detail-deskripsi">${item.deskripsi}</p>
           </div>
         `;
       } else {
-        container.innerHTML = `<p style="color:red;">Produk tidak ditemukan: "${nama}"</p>`;
-        console.log("DEBUG: Nama dari URL =", nama);
-        console.log("DEBUG: Semua produk =", semuaData.map(p => p.nama));
+        container.innerHTML = `<p style="color:red;">Produk tidak ditemukan: ${nama}</p>`;
       }
     })
-    .catch(err => console.error("Gagal mengambil data:", err));
+    .catch(err => {
+      console.error("Gagal fetch data:", err);
+      document.getElementById("detail-container").innerHTML = "<p style='color:red;'>Gagal mengambil data</p>";
+    });
   </script>
+  
 
   <style>
     body {
