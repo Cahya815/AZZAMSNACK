@@ -30,7 +30,7 @@
     Promise.all([
       fetchSheet("Terlaris"),
       fetchSheet("Snackbox"),
-      fetchSheet("Produk")
+      fetchSheet("Semua")
     ])
     .then(([terlaris, snackbox, produk]) => {
       const semua = [...terlaris, ...snackbox, ...produk];
