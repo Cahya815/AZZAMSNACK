@@ -3,593 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Azzam Snack</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+
+
     <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: #0a0a0a;
-            color: #fff;
-            overflow-x: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(29, 78, 216, 0.15);
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .glass-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-            background: rgba(255, 255, 255, 0.12);
-        }
-
-        .category-btn {
-            position: relative;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-
-        .category-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: all 0.5s ease;
-        }
-
-        .category-btn:hover::before {
-            left: 100%;
-        }
-
-        .active-category {
-            background: rgba(29, 78, 216, 0.8);
-            color: white;
-        }
-
-        .blue-glow {
-            box-shadow: 0 0 15px rgba(29, 78, 216, 0.5);
-        }
-
-        .custom-box-btn {
-            background: linear-gradient(135deg, #1d4ed8, #3b82f6);
-            transition: all 0.3s ease;
-        }
-
-        .custom-box-btn:hover {
-            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
-            transform: scale(1.05);
-        }
-
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
-    </style>
-</head>
-<body>
-    <div id="particles-container" style="position: fixed; width: 100%; height: 100%; z-index: -1;"></div>
-    <!-- Header -->
-    <header class="relative z-10 py-6 px-4 md:px-8">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
-            <div class="flex items-center mb-4 md:mb-0">
-                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-blue-400 flex items-center justify-center mr-3 blue-glow">
-                    <i class="fas fa-cookie-bite text-white text-xl"></i>
-                </div>
-                <h1 class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">
-                    Azzam Snack
-                </h1>
-            </div>
-            
-            <div class="flex items-center space-x-4">
-                <a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">
-                    <i class="fas fa-search text-xl"></i>
-                </a>
-                <a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">
-                    <i class="fas fa-shopping-cart text-xl"></i>
-                </a>
-                <a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">
-                    <i class="fas fa-user text-xl"></i>
-                </a>
-            </div>
-        </div>
-    </header>
-
-    <!-- Category Navigation -->
-    <div class="relative z-10 container mx-auto px-4 md:px-8 py-6">
-        <div class="flex flex-wrap justify-center gap-4">
-            <button class="category-btn active-category px-6 py-3 rounded-full text-white font-medium" data-category="bestseller">
-                Terlaris
-            </button>
-            <button class="category-btn bg-gray-800 px-6 py-3 rounded-full text-gray-300 font-medium" data-category="snackbox">
-                Snack Box
-            </button>
-            <button class="category-btn bg-gray-800 px-6 py-3 rounded-full text-gray-300 font-medium" data-category="all">
-                Semua Snack
-            </button>
-        </div>
-    </div>
-
-    <!-- Main Content -->
-    <main class="relative z-10 container mx-auto px-4 md:px-8 py-8">
-        <!-- Bestseller Section -->
-        <section id="bestseller-section" class="mb-16">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-2xl md:text-3xl font-bold">Snack Terlaris</h2>
-                <a href="#" class="text-blue-400 hover:text-blue-300 flex items-center">
-                    Lihat Semua <i class="fas fa-chevron-right ml-2 text-sm"></i>
-                </a>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                <!-- Snack Card 1 -->
-                <div class="glass-card rounded-xl overflow-hidden">
-                    <div class="relative">
-                        <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                            <div class="w-32 h-32 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 flex items-center justify-center floating">
-                                <i class="fas fa-cookie text-white text-5xl"></i>
-                            </div>
-                        </div>
-                        <span class="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">Terlaris</span>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold mb-2">Choco Cookies</h3>
-                        <div class="flex items-center mb-3">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <span class="text-gray-400 text-sm ml-2">(128)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <p class="text-xl font-bold text-blue-400">Rp 25.000</p>
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Snack Card 2 -->
-                <div class="glass-card rounded-xl overflow-hidden">
-                    <div class="relative">
-                        <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                            <div class="w-32 h-32 rounded-full bg-gradient-to-br from-red-300 to-red-500 flex items-center justify-center floating">
-                                <i class="fas fa-cheese text-white text-5xl"></i>
-                            </div>
-                        </div>
-                        <span class="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">Terlaris</span>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold mb-2">Cheese Sticks</h3>
-                        <div class="flex items-center mb-3">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <span class="text-gray-400 text-sm ml-2">(210)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <p class="text-xl font-bold text-blue-400">Rp 18.000</p>
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Snack Card 3 -->
-                <div class="glass-card rounded-xl overflow-hidden">
-                    <div class="relative">
-                        <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                            <div class="w-32 h-32 rounded-full bg-gradient-to-br from-green-300 to-green-500 flex items-center justify-center floating">
-                                <i class="fas fa-leaf text-white text-5xl"></i>
-                            </div>
-                        </div>
-                        <span class="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">Terlaris</span>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold mb-2">Cassava Chips</h3>
-                        <div class="flex items-center mb-3">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                            <span class="text-gray-400 text-sm ml-2">(95)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <p class="text-xl font-bold text-blue-400">Rp 15.000</p>
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Snack Card 4 -->
-                <div class="glass-card rounded-xl overflow-hidden">
-                    <div class="relative">
-                        <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                            <div class="w-32 h-32 rounded-full bg-gradient-to-br from-purple-300 to-purple-500 flex items-center justify-center floating">
-                                <i class="fas fa-candy-cane text-white text-5xl"></i>
-                            </div>
-                        </div>
-                        <span class="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">Terlaris</span>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold mb-2">Sweet Pastry</h3>
-                        <div class="flex items-center mb-3">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                            <span class="text-gray-400 text-sm ml-2">(78)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <p class="text-xl font-bold text-blue-400">Rp 22.000</p>
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Snack Box Section -->
-        <section id="snackbox-section" class="mb-16 hidden">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-2xl md:text-3xl font-bold">Snack Box</h2>
-                <a href="#" class="text-blue-400 hover:text-blue-300 flex items-center">
-                    Lihat Semua <i class="fas fa-chevron-right ml-2 text-sm"></i>
-                </a>
-            </div>
-            
-            <!-- Custom Box Banner -->
-            <div class="glass-card rounded-xl overflow-hidden mb-10 relative">
-                <div class="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30 z-0"></div>
-                <div class="relative z-10 p-8 md:p-12 flex flex-col md:flex-row items-center">
-                    <div class="md:w-2/3 mb-6 md:mb-0 md:pr-8">
-                        <h3 class="text-2xl md:text-3xl font-bold mb-4">Buat Sendiri Pesanan Box Anda</h3>
-                        <p class="text-gray-300 mb-6">Pilih snack favorit Anda dan kami akan menyusunnya dalam box yang cantik. Sempurna untuk acara, hadiah, atau kebutuhan kantor.</p>
-                        <button class="custom-box-btn px-8 py-3 rounded-full text-white font-medium blue-glow">
-                            Buat Box Sekarang
-                        </button>
-                    </div>
-                    <div class="md:w-1/3 flex justify-center">
-                        <div class="relative w-48 h-48">
-                            <div class="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-xl transform rotate-12"></div>
-                            <div class="absolute inset-0 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-xl transform -rotate-12"></div>
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <i class="fas fa-box-open text-white text-7xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Box Card 1 -->
-                <div class="glass-card rounded-xl overflow-hidden">
-                    <div class="relative">
-                        <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                            <div class="w-32 h-32 bg-gradient-to-br from-blue-300 to-blue-500 rounded-xl flex items-center justify-center floating">
-                                <i class="fas fa-box text-white text-5xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold mb-2">Mini Box</h3>
-                        <p class="text-gray-400 text-sm mb-3">5 item snack pilihan dalam box cantik</p>
-                        <div class="flex justify-between items-center">
-                            <p class="text-xl font-bold text-blue-400">Rp 50.000</p>
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Box Card 2 -->
-                <div class="glass-card rounded-xl overflow-hidden">
-                    <div class="relative">
-                        <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                            <div class="w-32 h-32 bg-gradient-to-br from-purple-300 to-purple-500 rounded-xl flex items-center justify-center floating">
-                                <i class="fas fa-box text-white text-5xl"></i>
-                            </div>
-                        </div>
-                        <span class="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">Terlaris</span>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold mb-2">Medium Box</h3>
-                        <p class="text-gray-400 text-sm mb-3">8 item snack pilihan dalam box cantik</p>
-                        <div class="flex justify-between items-center">
-                            <p class="text-xl font-bold text-blue-400">Rp 75.000</p>
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Box Card 3 -->
-                <div class="glass-card rounded-xl overflow-hidden">
-                    <div class="relative">
-                        <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                            <div class="w-32 h-32 bg-gradient-to-br from-indigo-300 to-indigo-500 rounded-xl flex items-center justify-center floating">
-                                <i class="fas fa-box text-white text-5xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold mb-2">Premium Box</h3>
-                        <p class="text-gray-400 text-sm mb-3">12 item snack premium dalam box eksklusif</p>
-                        <div class="flex justify-between items-center">
-                            <p class="text-xl font-bold text-blue-400">Rp 120.000</p>
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- All Snacks Section -->
-        <section id="all-section" class="hidden">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-2xl md:text-3xl font-bold">Semua Snack</h2>
-                <div class="relative">
-                    <select class="bg-gray-800 text-white rounded-full px-4 py-2 pr-8 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        <option>Terbaru</option>
-                        <option>Harga: Rendah ke Tinggi</option>
-                        <option>Harga: Tinggi ke Rendah</option>
-                        <option>Rating Tertinggi</option>
-                    </select>
-                    <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
-                        <i class="fas fa-chevron-down text-xs"></i>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                <!-- Snack Cards (8 items) -->
-                <!-- Card 1 -->
-                <div class="glass-card rounded-xl overflow-hidden">
-                    <div class="relative">
-                        <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                            <div class="w-32 h-32 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 flex items-center justify-center floating">
-                                <i class="fas fa-cookie text-white text-5xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold mb-2">Choco Cookies</h3>
-                        <div class="flex items-center mb-3">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                            </div>
-                            <span class="text-gray-400 text-sm ml-2">(128)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <p class="text-xl font-bold text-blue-400">Rp 25.000</p>
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Card 2 -->
-                <div class="glass-card rounded-xl overflow-hidden">
-                    <div class="relative">
-                        <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                            <div class="w-32 h-32 rounded-full bg-gradient-to-br from-red-300 to-red-500 flex items-center justify-center floating">
-                                <i class="fas fa-cheese text-white text-5xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold mb-2">Cheese Sticks</h3>
-                        <div class="flex items-center mb-3">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                            <span class="text-gray-400 text-sm ml-2">(210)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <p class="text-xl font-bold text-blue-400">Rp 18.000</p>
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Additional cards -->
-                <div class="glass-card rounded-xl overflow-hidden">
-                    <div class="relative">
-                        <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                            <div class="w-32 h-32 rounded-full bg-gradient-to-br from-green-300 to-green-500 flex items-center justify-center floating">
-                                <i class="fas fa-leaf text-white text-5xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold mb-2">Cassava Chips</h3>
-                        <div class="flex items-center mb-3">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                            <span class="text-gray-400 text-sm ml-2">(95)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <p class="text-xl font-bold text-blue-400">Rp 15.000</p>
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="glass-card rounded-xl overflow-hidden">
-                    <div class="relative">
-                        <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                            <div class="w-32 h-32 rounded-full bg-gradient-to-br from-orange-300 to-orange-500 flex items-center justify-center floating">
-                                <i class="fas fa-bread-slice text-white text-5xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold mb-2">Banana Bread</h3>
-                        <div class="flex items-center mb-3">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                            <span class="text-gray-400 text-sm ml-2">(87)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <p class="text-xl font-bold text-blue-400">Rp 20.000</p>
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="glass-card rounded-xl overflow-hidden">
-                    <div class="relative">
-                        <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                            <div class="w-32 h-32 rounded-full bg-gradient-to-br from-pink-300 to-pink-500 flex items-center justify-center floating">
-                                <i class="fas fa-ice-cream text-white text-5xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold mb-2">Strawberry Wafer</h3>
-                        <div class="flex items-center mb-3">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star-half-alt"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                            <span class="text-gray-400 text-sm ml-2">(65)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <p class="text-xl font-bold text-blue-400">Rp 12.000</p>
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="glass-card rounded-xl overflow-hidden">
-                    <div class="relative">
-                        <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                            <div class="w-32 h-32 rounded-full bg-gradient-to-br from-blue-300 to-blue-500 flex items-center justify-center floating">
-                                <i class="fas fa-fish text-white text-5xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold mb-2">Fish Crackers</h3>
-                        <div class="flex items-center mb-3">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="far fa-star"></i>
-                            </div>
-                            <span class="text-gray-400 text-sm ml-2">(102)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <p class="text-xl font-bold text-blue-400">Rp 16.000</p>
-                            <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full">
-                                <i class="fas fa-plus"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="glass-card rounded-xl overflow-hidden">
-                    <div class="relative">
-                        <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                            <div class="w-32 h-32 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-500 flex items-center justify-center floating">
-                                <i class="fas fa-seedling text-white text-5xl"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="p-5">
-                        <h3 class="text-xl font-semibold mb-2">Corn Chips</h3>
-                        <div class="flex items-center mb-3">
-                            <div class="flex text-yellow-400">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class
-        </div>
         
-        <div class="glass-card rounded-xl overflow-hidden">
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #0a0a0a;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+
+
+.category-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.category-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.5s ease;
+}
+
+.category-btn:hover::before {
+    left: 100%;
+}
+
+.active-category {
+    background: rgba(29, 78, 216, 0.8);
+    color: white;
+}
+
+.blue-glow {
+    box-shadow: 0 0 15px rgba(29, 78, 216, 0.5);
+}
+
+.custom-box-btn {
+    background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+    transition: all 0.3s ease;
+}
+
+.custom-box-btn:hover {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    transform: scale(1.05);
+}
+
+.floating {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+.glow-line {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.7), transparent);
+}
+
+.hero-bg {
+    background: radial-gradient(circle at center, rgba(29, 78, 216, 0.15), transparent 70%);
+}
+
+.grid-bg {
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+
+.snack-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+    background-size: cover;
+    background-position: center;
+}
+</style>
+
+
+
+</head>
+
+<body>
+<!-- Header -->
+<header class="relative z-10 py-6 px-4 md:px-8">
+<div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+    <div class="flex items-center mb-4 md:mb-0">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-600 to-blue-400 flex items-center justify-center mr-3 blue-glow">
+            <i class="fas fa-cookie-bite text-white text-xl"></i>
+        </div>
+        <h1 class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">
+            Azzam Snack
+        </h1>
+    </div>
+    
+    <div class="flex items-center space-x-4">
+        <a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">
+            <i class="fas fa-search text-xl"></i>
+        </a>
+        <a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">
+            <i class="fas fa-shopping-cart text-xl"></i>
+        </a>
+        <a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">
+            <i class="fas fa-user text-xl"></i>
+        </a>
+    </div>
+</div>
+</header>
+
+<!-- Category Navigation -->
+<div class="relative z-10 container mx-auto px-4 md:px-8 py-6">
+<div class="flex flex-wrap justify-center gap-4">
+ 
+    <button class="category-btn bg-gray-800 px-6 py-3 rounded-full text-gray-300 font-medium" data-category="snackbox">
+        Snack Box
+    </button>
+    <button class="category-btn bg-gray-800 px-6 py-3 rounded-full text-gray-300 font-medium" data-category="all">
+        Semua Snack
+    </button>
+</div>
+</div>
+
+<!-- Main Content -->
+<main class="relative z-10 container mx-auto px-4 md:px-8 py-8">
+<!-- Bestseller Section -->
+<section id="bestseller-section" class="mb-16">
+    <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold">Snack Terlaris</h2>
+        <a href="#" class="text-blue-400 hover:text-blue-300 flex items-center">
+            Lihat Semua <i class="fas fa-chevron-right ml-2 text-sm"></i>
+        </a>
+    </div>
+    
+    <div class="flex justify-center">
+        <!-- Snack Card -->
+        <div class="glass-card rounded-xl overflow-hidden max-w-sm">
             <div class="relative">
-                <div class="h-48 bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
-                    <div class="w-32 h-32 rounded-full bg-gradient-to-br from-green-300 to-green-500 flex items-center justify-center floating">
-                        <i class="fas fa-pepper-hot text-white text-5xl"></i>
-                    </div>
-                </div>
+                <div class="snack-image" style="background-image: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"180\" viewBox=\"0 0 200 180\"><rect width=\"200\" height=\"180\" fill=\"%231E3A8A\" opacity=\"0.2\"/><circle cx=\"100\" cy=\"90\" r=\"40\" fill=\"%233B82F6\" opacity=\"0.6\"/><path d=\"M80,70 Q100,40 120,70 T160,70 Q130,100 160,130 Q140,150 100,130 Q60,150 40,130 Q70,100 40,70 Q60,70 80,70 Z\" fill=\"%23DBEAFE\" opacity=\"0.8\"/></svg>')"></div>
+                <span class="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">Terlaris</span>
             </div>
             <div class="p-5">
-                <h3 class="text-xl font-semibold mb-2">Spicy Crackers</h3>
+                <h3 class="text-xl font-semibold mb-2">Choco Cookies</h3>
+                <div class="flex items-center mb-3">
+                    <div class="flex text-yellow-400">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <span class="text-gray-400 text-sm ml-2">(128)</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <p class="text-xl font-bold text-blue-400">Rp 25.000</p>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Snack Box Section -->
+<section id="snackbox-section" class="mb-16 hidden">
+    <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold">Snack Box</h2>
+        <a href="#" class="text-blue-400 hover:text-blue-300 flex items-center">
+            Lihat Semua <i class="fas fa-chevron-right ml-2 text-sm"></i>
+        </a>
+    </div>
+    
+    <!-- Custom Box Banner -->
+    <div class="glass-card rounded-xl overflow-hidden mb-10 relative">
+        <div class="absolute inset-0 bg-gradient-to-r from-blue-600/30 to-purple-600/30 z-0"></div>
+        <div class="relative z-10 p-8 md:p-12 flex flex-col md:flex-row items-center">
+            <div class="md:w-2/3 mb-6 md:mb-0 md:pr-8">
+                <h3 class="text-2xl md:text-3xl font-bold mb-4">Buat Sendiri Pesanan Box Anda</h3>
+                <p class="text-gray-300 mb-6">Pilih snack favorit Anda dan kami akan menyusunnya dalam box yang cantik. Sempurna untuk acara, hadiah, atau kebutuhan kantor.</p>
+                <button class="custom-box-btn px-8 py-3 rounded-full text-white font-medium blue-glow">
+                    Buat Box Sekarang
+                </button>
+            </div>
+            <div class="md:w-1/3 flex justify-center">
+                <div class="w-64 h-64 relative">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" class="w-full h-full">
+                        <rect width="200" height="200" fill="none"/>
+                        <rect x="40" y="60" width="120" height="80" fill="#3B82F6" opacity="0.2" rx="5"/>
+                        <rect x="50" y="50" width="100" height="80" fill="#3B82F6" opacity="0.4" rx="5"/>
+                        <rect x="60" y="40" width="80" height="80" fill="#3B82F6" opacity="0.6" rx="5"/>
+                        <circle cx="100" cy="80" r="15" fill="#DBEAFE"/>
+                        <circle cx="70" cy="80" r="10" fill="#FCD34D"/>
+                        <circle cx="130" cy="80" r="10" fill="#10B981"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="flex justify-center">
+        <!-- Box Card -->
+        <div class="glass-card rounded-xl overflow-hidden max-w-sm">
+            <div class="relative">
+                <div class="snack-image"></div>
+                <span class="absolute top-4 right-4 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-full">Terlaris</span>
+            </div>
+            <div class="p-5">
+                <h3 class="text-xl font-semibold mb-2">Mini Box</h3>
+                <p class="text-gray-400 text-sm mb-3">5 item snack pilihan dalam box cantik</p>
+                <div class="flex justify-between items-center">
+                    <p class="text-xl font-bold text-blue-400">Rp 50.000</p>
+                    <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- All Snacks Section -->
+<section id="all-section" class="hidden">
+    <div class="flex justify-between items-center mb-8">
+        <h2 class="text-2xl md:text-3xl font-bold">Semua Snack</h2>
+        <div class="relative">
+            <select class="bg-gray-800 text-white rounded-full px-4 py-2 pr-8 appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <option>Terbaru</option>
+                <option>Harga: Rendah ke Tinggi</option>
+                <option>Harga: Tinggi ke Rendah</option>
+                <option>Rating Tertinggi</option>
+            </select>
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-white">
+                <i class="fas fa-chevron-down text-xs"></i>
+            </div>
+        </div>
+    </div>
+    
+    <div class="flex justify-center">
+        <!-- Snack Card -->
+        <div class="glass-card rounded-xl overflow-hidden max-w-sm">
+            <div class="relative">
+                <div class="snack-image" ></div>
+            </div>
+            <div class="p-5">
+                <h3 class="text-xl font-semibold mb-2">Banana Bread</h3>
                 <div class="flex items-center mb-3">
                     <div class="flex text-yellow-400">
                         <i class="fas fa-star"></i>
@@ -598,10 +280,10 @@
                         <i class="fas fa-star"></i>
                         <i class="far fa-star"></i>
                     </div>
-                    <span class="text-gray-400 text-sm ml-2">(76)</span>
+                    <span class="text-gray-400 text-sm ml-2">(87)</span>
                 </div>
                 <div class="flex justify-between items-center">
-                    <p class="text-xl font-bold text-blue-400">Rp 17.000</p>
+                    <p class="text-xl font-bold text-blue-400">Rp 20.000</p>
                     <button class="bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full">
                         <i class="fas fa-plus"></i>
                     </button>
@@ -697,9 +379,18 @@
     <div class="border-t border-gray-800 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
         <p class="text-gray-500 text-sm mb-4 md:mb-0">© 2023 Azzam Snack. All rights reserved.</p>
         <div class="flex space-x-4">
-            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDQwIDI0IiBmaWxsPSJub25lIj48cmVjdCB3aWR0aD0iNDAiIGhlaWdodD0iMjQiIHJ4PSI0IiBmaWxsPSIjMUExQTFBIi8+PHBhdGggZD0iTTEzLjU4MSAxOC4yNzNIMTAuNDJWNy43MjdoMy4xNjF2MTAuNTQ2WiIgZmlsbD0iI0ZGQUEwMCIvPjxwYXRoIGQ9Ik0yMi44MzkgMTEuOTk4QzIyLjgzOSAxMS4wOTEgMjIuMTI5IDEwLjQ1NSAyMS4wMzIgMTAuNDU1QzE5LjkzNiAxMC40NTUgMTkuMjI2IDExLjA5MSAxOS4yMjYgMTEuOTk4QzE5LjIyNiAxMi45MDUgMTkuOTM2IDEzLjU0MSAyMS4wMzIgMTMuNTQxQzIyLjEyOSAxMy41NDEgMjIuODM5IDEyLjkwNSAyMi44MzkgMTEuOTk4Wk0yMy41NDggMTguMjczSDIwLjUxNlYxNC44MTlIMjMuNTQ4VjE4LjI3M1oiIGZpbGw9IiNGRkFBMDAiLz48cGF0aCBkPSJNMjkuNTgxIDcuNzI3SDI2LjQ1MlYxOC4yNzNIMjkuNTgxVjcuNzI3WiIgZmlsbD0iI0ZGQUEwMCIvPjwvc3ZnPg==" alt="Payment Method" class="h-6">
-            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDQwIDI0IiBmaWxsPSJub25lIj48cmVjdCB3aWR0aD0iNDAiIGhlaWdodD0iMjQiIHJ4PSI0IiBmaWxsPSIjMUExQTFBIi8+PHBhdGggZD0iTTE2LjI3NSAxNi4yNzNIMTMuNzI1VjcuNzI3SDE2LjI3NVYxNi4yNzNaIiBmaWxsPSIjMDA3OUJFIi8+PHBhdGggZD0iTTI2LjI3NSAxNi4yNzNIMjMuNzI1VjcuNzI3SDI2LjI3NVYxNi4yNzNaIiBmaWxsPSIjMDA3OUJFIi8+PHBhdGggZD0iTTIwIDcuNzI3QzE4LjM0NCA3LjcyNyAxNyA4LjkwOSAxNyAxMC40NTVDMTcgMTIgMTguMzQ0IDEzLjE4MiAyMCAxMy4xODJDMjEuNjU2IDEzLjE4MiAyMyAxMiAyMyAxMC40NTVDMjMgOC45MDkgMjEuNjU2IDcuNzI3IDIwIDcuNzI3WiIgZmlsbD0iIzAwNzlCRSIvPjwvc3ZnPg==" alt="Payment Method" class="h-6">
-            <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDQwIDI0IiBmaWxsPSJub25lIj48cmVjdCB3aWR0aD0iNDAiIGhlaWdodD0iMjQiIHJ4PSI0IiBmaWxsPSIjMUExQTFBIi8+PHBhdGggZD0iTTI2LjI3NSA3LjcyN0gxMy43MjVWMTYuMjczSDI2LjI3NVY3LjcyN1oiIGZpbGw9IiMwMEExREYiLz48L3N2Zz4=" alt="Payment Method" class="h-6">
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="24" viewBox="0 0 40 24" fill="none" class="h-6">
+                <rect width="40" height="24" rx="4" fill="#1A1A1A"/>
+                <path d="M13.581 18.273H10.42V7.727h3.161v10.546Z" fill="#FFAA00"/>
+                <path d="M22.839 11.998C22.839 11.091 22.129 10.455 21.032 10.455C19.936 10.455 19.226 11.091 19.226 11.998C19.226 12.905 19.936 13.541 21.032 13.541C22.129 13.541 22.839 12.905 22.839 11.998ZM23.548 18.273H20.516V14.819H23.548V18.273Z" fill="#FFAA00"/>
+                <path d="M29.581 7.727H26.452V18.273H29.581V7.727Z" fill="#FFAA00"/>
+            </svg>
+            <svg xmlns="http://www.w3.org/2000/svg" width="40" height="24" viewBox="0 0 40 24" fill="none" class="h-6">
+                <rect width="40" height="24" rx="4" fill="#1A1A1A"/>
+                <path d="M16.275 16.273H13.725V7.727H16.275V16.273Z" fill="#0079BE"/>
+                <path d="M26.275 16.273H23.725V7.727H26.275V16.273Z" fill="#0079BE"/>
+                <path d="M20 7.727C18.344 7.727 17 8.909 17 10.455C17 12 18.344 13.182 20 13.182C21.656 13.182 23 12 23 10.455C23 8.909 21.656 7.727 20 7.727Z" fill="#0079BE"/>
+            </svg>
         </div>
     </div>
 </div>
@@ -804,3 +495,5 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+</body>
+</html>

@@ -1,21 +1,107 @@
-
-body {
+html, body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     min-height: 100vh;
     overflow-x: hidden;
-    background: #000;
-
+    background-color: #111111 !important ;
+  
 }
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.hero-glass-card {
+    background: linear-gradient(135deg, rgba(29, 78, 216, 0.2), rgba(59, 130, 246, 0.2)); /* Blue gradient overlay */
+    backdrop-filter: blur(10px); /* Stronger blur */
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 1.5rem; /* More rounded corners */
+    position: relative;
+    overflow: hidden;
+}
+
+.category-btn {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+}
+
+.category-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.5s ease;
+}
+
+.category-btn:hover::before {
+    left: 100%;
+}
+
+.active-category {
+    background: rgba(29, 78, 216, 0.8);
+   
+}
+
+.blue-glow {
+    box-shadow: 0 0 15px rgba(29, 78, 216, 0.5);
+}
+
+.custom-box-btn {
+    background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+    transition: all 0.3s ease;
+}
+
+.custom-box-btn:hover {
+    background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+    transform: scale(1.05);
+}
+
+
+        
+/* DARI CANVA */
+
+
+
+
+/* Dari Gemini */
+.garis-gradien {
+    width: 80%;
+    height: 4px;
+    margin: 24px auto;
+    background: linear-gradient(to right, transparent, #3b82f6, transparent);
+    opacity: 0.8;
+    border-radius: 999px;
+  }
+  
+  
+  
+
+.text-center {
+    font-size: 23px;
+    font-family: potta one;
+}
+h2 {
+    color: #fff !important;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .header {
-    background: linear-gradient(176deg, #005EFF 23%, #4586FF 100%); border-radius: 34px;
+    background: linear-gradient(176deg, #1d4ed8 23%, #3b82f6 100%);
+    border-radius: 34px;
     justify-content: center;
     display: flex;
-    flex-direction:column ;
+    flex-direction: column;
     align-items: center;
-    
-    /* padding-left: 100px; */
     margin-top: 5%;
     margin-left: 2.5%;
     margin-right: 2.5%;
@@ -23,72 +109,74 @@ body {
 }
 
 .text {
-    color: white; font-size: 24px; font-family: Potta One; font-weight: 400; line-height: 24px;
-    /* justify-content: center; */
-    align-items: center;
-    padding-bottom: 10%;
-    padding-top: 20%;
-    color: white;
+    color: #fff;
     font-size: 24px;
     font-family: Potta One;
     font-weight: 400;
     line-height: 24px;
-    word-wrap: break-word
+    word-wrap: break-word;
 }
 
-.kategori{
-    flex-direction: row;
-    padding-top: 15%;
-    padding-bottom: 10%;
-}
-.text-center {
-    align-items: center;
-    color: rgb(0, 0, 0);
-    font-size: 22px;
-    font-family: Potta One;
-    font-weight: 400;
-    line-height: 12px;
-    word-wrap: break-word;
-    padding-bottom: 1%;
-}
-.text-center {
-    margin-top: 15%;
+input::placeholder {
+    font-size: 12px;
+    opacity: 0.6; /* opsional: biar lebih redup */
+    width: 1px;
 }
 
 .kategori {
-    display: flex; /* INI PENTING */
+    display: flex;
     flex-direction: row;
-    justify-content: space-around; /* biar rata */
-    padding-top: 5%;
+    justify-content: space-around;
+    padding-top: 10%;
     padding: 2%;
     padding-bottom: 5%;
-
 }
 
-.kategori1, .kategori2, .kategori3 {
-    width: 30%; /* atau 100px misalnya */
-    height: 100px;
-    background-color: #ffffff;
-    color: white;
+.kategori1,
+.kategori2,
+.kategori3 {
+    color: #fff;
     display: flex;
     flex-direction: column;
     padding: 10px;
-    border-radius: 8px; padding: 10px;
-    border-radius: 8px;
-    font-family: Potta One;
+    border-radius: 24px;
+    font-family: 'Poppins', sans-serif;
+    justify-content: center;
+    transition: all 0.3s ease;
+    background-color: #1d4ed8;
+    border: none;
 }
 
-.button1, .button2, .button3 {
-    background-color: #005EFF;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    text-decoration-line: none;
-    color: whitesmoke;
-    outline: none;
-    align-items: center;
-    justify-content: center;
-    font-size: small;
-    border-radius: 8px;
+.kategori1:hover,
+.kategori2:hover,
+.kategori3:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+
+}
+
+.button1,
+.button2,
+.button3 {
+   
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 24px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.button1:hover,
+.button2:hover,
+.button3:hover {
+    
+    background: rgba(255, 255, 255, 0.12);
+    transform: scale(1.05);
 }
 
 .section {
@@ -96,57 +184,116 @@ body {
 }
 
 .terlaris {
-    display: flex; /* INI PENTING */
+    display: flex;
     flex-direction: row;
-    justify-content: space-around ; /* biar rata */
+    justify-content: space-around;
     padding-top: 5%;
     padding: 2.5%;
-
 }
 
-.terlaris1, .terlaris2 {
-    width: 45%; /* atau 100px misalnya */
+.terlaris1,
+.terlaris2 {
+    width: 45%;
     height: 200px;
     background-color: #8d8d8d;
     color: white;
     display: flex;
     flex-direction: column;
     border-radius: 8px;
-    border-radius: 8px;
     font-family: Potta One;
-    /* margin-left: 5%;
-    margin-right: 5%; */
 }
 
 .produk-container {
     display: grid;
-    grid-template-columns: repeat(2, 1fr); /* 2 kolom */
-  gap: 20px;
-  padding: 20px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+    background-color: transparent;
 }
 
 .produk {
-  border: 1px solid #ddd;
-  
-  padding: 10px;
-  text-align: center;
-  border-radius: 10px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .produk img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px;
 }
 
-h2, p {
-  margin: 5px 0;
+h2,
+p {
+    margin: 5px 0;
 }
 
 @media (max-width: 600px) {
-.produk {
-width: 0 2 50%;
+    .produk {
+        width: 0 2 50%;
+    }
 }
+
+.glass-card {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+    color: #fff;
+}
+
+.glass-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.floating {
+    animation: float 6s ease-in-out infinite;
+}
+
+.hero-content {
+  margin-top: 50px;
+  text-align: center;
+}
+
+.glass-card-container {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  height: 200px; /* Adjust as needed */
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.glass-card-container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  /* Gradient overlay */
+  background: linear-gradient(to right, rgba(192, 219, 255, 0.3), rgba(192, 219, 255, 0.1));
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
 }
