@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AZZAM SNACK</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
+    
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Potta+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
@@ -18,7 +18,57 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Potta+One&display=swap" rel="stylesheet">
    <style>
- 
+ body {
+            font-family: 'Inter', sans-serif; /* Default font */
+            background-color: #111111; /* Dark background as seen in image */
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        /* Styles for the glass effect cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08); /* Semi-transparent white */
+            backdrop-filter: blur(8px); /* Blur effect */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Light border */
+            border-radius: 1rem; /* Rounded corners */
+            transition: all 0.3s ease; /* Smooth transition for hover effects */
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px); /* Slight lift on hover */
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+            background: rgba(255, 255, 255, 0.12); /* Slightly more opaque on hover */
+        }
+
+        /* Specific styles for the main hero card */
+        .hero-glass-card {
+            background: linear-gradient(135deg, rgba(29, 78, 216, 0.2), rgba(59, 130, 246, 0.2)); /* Blue gradient overlay */
+            backdrop-filter: blur(10px); /* Stronger blur */
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 1.5rem; /* More rounded corners */
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Style for the "Terlaris" badge */
+        .badge-terlaris {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background-color: #ef4444; /* Red color */
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px; /* Fully rounded */
+            font-size: 0.75rem;
+            font-weight: bold;
+            z-index: 10; /* Ensure it's above other content */
+        }
+
+        /* Custom font for headings */
+        h1, h2 {
+            font-family: 'Potta One', cursive;
+        }
     </style>
   </head>
 <body class="text-white">
@@ -26,7 +76,7 @@
   <header class="relative z-10 py-6 px-4 md:px-8">
     <div class="container mx-auto flex justify-between items-center">
         <div>
-            <h1 class="text-3xl md:text-4xl font-bold bg-clip-text text-blue-400">
+            <h1 class="text-3xl md:text-4xl bg-clip-text text-blue-400">
                 Azzam Snack
             </h1>
         </div>
@@ -107,7 +157,19 @@
 
               <!-- Snack box -->
         <div id="kategori1" class="SEMUA-PRODUK"></div>  
-        <h2 class="text-center">Snackbox</h2>
+          </div>
+  
+          <div class="">
+              <div class="hero-glass-card p-6 md:p-10 mb-12 flex flex-col md:flex-row items-center justify-between relativemd:w-2/3 text-center md:text-left mb-6 md:mb-0">
+                  <h3 class="text-2xl md:text-3xl mb-4">Buat Sendiri Pesanan Box Anda</h3>
+                  <p class="text-gray-300 mb-6 text-sm md:text-base">
+                      Pilih snack favorit Anda dan kami akan menyusunnya dalam box yang cantik.
+                      Sempurna untuk acara, hadiah, atau kebutuhan kantor.
+                  </p>
+                  <button class="bg-blue-600 hover:bg-blue-700 text-white py-3 px-6 rounded-full transition-colors shadow-lg">
+                      Buat Box Sekarang
+                  </button>
+                </div>
         <!-- SELIPKAN DISINI -->
         <div class="produk-container" id="snackbox-list"></div>
 
@@ -116,27 +178,9 @@
         <h2 class="text-center">Semua Snack</h2>
         <div class="produk-container" id="produk-list"></div>
         
-        <div class="container mx-auto px-4 py-8 md:px-8">
-          <div class="flex justify-between items-center mb-8">
-              <h2 class="text-3xl md:text-4xl font-bold text-white">Snack Box</h2>
-              <a href="#" class="text-blue-400 hover:text-blue-300 transition-colors flex items-center">
-                  Lihat Semua <i class="fas fa-chevron-right ml-2 text-sm"></i>
-              </a>
-          </div>
-  
-          <div class="hero-glass-card p-6 md:p-10 mb-12 flex flex-col md:flex-row items-center justify-between relative">
-              <div class="md:w-2/3 text-center md:text-left mb-6 md:mb-0">
-                  <h3 class="text-2xl md:text-3xl font-bold mb-4">Buat Sendiri Pesanan Box Anda</h3>
-                  <p class="text-gray-300 mb-6 text-sm md:text-base">
-                      Pilih snack favorit Anda dan kami akan menyusunnya dalam box yang cantik.
-                      Sempurna untuk acara, hadiah, atau kebutuhan kantor.
-                  </p>
-                  <button class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-full transition-colors shadow-lg" onclick="location.href='snackBox.html'">
-                      Buat Box Sekarang
-                  </button>
-              </div>
+      
      
-        <script>
+<script>
 
 
           const SHEET_ID = "1DfDp2TDoKPs29zgp80vnC6afVIox7ik3wt_RaSJx6MU"; // ganti dengan sheet ID kamu
@@ -176,10 +220,6 @@ tampilkanProduk("Terlaris", "terlaris-list");
 tampilkanProduk("Snackbox", "snackbox-list");
 tampilkanProduk("Semua", "produk-list"); // Semua snack
 
-// Fungsi search
-const searchInput = document.getElementById("searchInput");
-const searchBtn = document.getElementById("searchBtn");
-
 function cariProduk() {
   const query = searchInput.value.toLowerCase();
   const produkList = document.querySelectorAll("#produk-list .produk");
@@ -198,13 +238,20 @@ function cariProduk() {
   }
 }
 
-searchInput.addEventListener("input", cariProduk);
-searchBtn.addEventListener("click", cariProduk);
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById("searchInput");
+  const searchBtn = document.getElementById("searchBtn");
 
+  searchInput.addEventListener("input", cariProduk);
+  searchBtn.addEventListener("click", cariProduk);
+});
 </script>
   
 
 
       
+  <a href="https://wa.me/6281234567890" class="whatsapp-button">
+    <i class="fab fa-whatsapp"></i>
+  </a>
 </body>
 </html>
