@@ -18,7 +18,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Potta+One&display=swap" rel="stylesheet">
    <style>
- body {
+
+        body {
             font-family: 'Inter', sans-serif; /* Default font */
             background-color: #111111; /* Dark background as seen in image */
             color: #ffffff;
@@ -69,6 +70,355 @@
         h1, h2 {
             font-family: 'Potta One', cursive;
         }
+
+        /* Custom styles for search dropdown */
+        .search-dropdown {
+            position: absolute;
+            top: 60px; /* Adjust based on header height */
+            right: 20px;
+            width: 250px; /* Width of the dropdown */
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            padding: 1rem;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            display: none; /* Hidden by default */
+            z-index: 100;
+        }
+
+        .search-dropdown.active {
+            display: block; /* Show when active */
+        }
+
+        .search-dropdown input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            outline: none;
+        }
+
+        .search-dropdown input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Existing CSS from provided snippet */
+        body {
+            background-color: #111111 !important; /* Dark background as seen in image */
+            background-image:
+                linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 2px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 2px);
+            background-size: 20px 20px; /* Adjust grid cell size as needed */
+        }
+
+        .category-btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+        }
+
+        .category-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: all 0.5s ease;
+        }
+
+        .category-btn:hover::before {
+            left: 100%;
+        }
+
+        .active-category {
+            background: rgba(29, 78, 216, 0.8);
+        }
+
+        .blue-glow {
+            box-shadow: 0 0 15px rgba(29, 78, 216, 0.5);
+        }
+
+        .custom-box-btn {
+            background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+            transition: all 0.3s ease;
+        }
+
+        .custom-box-btn:hover {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            transform: scale(1.05);
+        }
+
+        .garis-gradien {
+            width: 80%;
+            height: 4px;
+            margin: 24px auto;
+            background: linear-gradient(to right, transparent, #3b82f6, transparent);
+            opacity: 0.8;
+            border-radius: 999px;
+        }
+        
+        .text-center {
+            font-size: 23px;
+            font-family: potta one;
+        }
+        h2 {
+            color: #fff !important;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .header {
+            background: linear-gradient(176deg, #1d4ed8 23%, #3b82f6 100%);
+            border-radius: 34px;
+            justify-content: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 5%;
+            margin-left: 2.5%;
+            margin-right: 2.5%;
+            height: 150px;
+        }
+
+        .text {
+            color: #fff;
+            font-size: 24px;
+            font-family: Potta One;
+            font-weight: 400;
+            line-height: 24px;
+            word-wrap: break-word;
+        }
+
+        input::placeholder {
+            font-size: 12px;
+            opacity: 0.6; /* opsional: biar lebih redup */
+            width: 1px;
+        }
+
+        .kategori {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            padding-top: 10%;
+            padding: 2%;
+            padding-bottom: 5%;
+        }
+
+        .kategori1,
+        .kategori2,
+        .kategori3 {
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            padding: 10px;
+            border-radius: 24px;
+            font-family: 'Poppins', sans-serif;
+            justify-content: center;
+            transition: all 0.3s ease;
+            background-color: #1d4ed8;
+            border: none;
+        }
+
+        .kategori1:hover,
+        .kategori2:hover,
+        .kategori3:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+
+        }
+
+        .button1,
+        .button2,
+        .button3 {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 24px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .button1:hover,
+        .button2:hover,
+        .button3:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: scale(1.05);
+        }
+
+        .section {
+            padding-top: 100%;
+        }
+
+        .terlaris {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            padding-top: 5%;
+            padding: 2.5%;
+        }
+
+        .terlaris1,
+        .terlaris2 {
+            width: 45%;
+            height: 200px;
+            background-color: #8d8d8d;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            border-radius: 8px;
+            font-family: Potta One;
+        }
+
+        /* --- Responsive Grid Control --- */
+        .produk-container {
+            display: grid;
+            /* Default to 2 columns for mobile */
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 20px;
+            background-color: transparent;
+        }
+
+        /* Adjust for desktop (and larger tablets) */
+        @media (min-width: 768px) { /* Tailwind's 'md' breakpoint */
+            .produk-container {
+                grid-template-columns: repeat(4, 1fr); /* 4 columns for desktop */
+            }
+        }
+        /* --- End Responsive Grid Control --- */
+
+        .produk {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .produk img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        h2,
+        p {
+            margin: 5px 0;
+        }
+
+        @media (max-width: 600px) {
+            .produk {
+                width: 100%;
+            }
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            color: #fff;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero-content {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .glass-card-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            height: 200px; /* Adjust as needed */
+            margin: 0 auto;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .glass-card-container img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            /* Gradient overlay */
+            background: linear-gradient(to right, rgba(192, 219, 255, 0.3), rgba(192, 219, 255, 0.1));
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-15px);
+            }
+
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        .whatsapp-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            color: #fff;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 2px 2px 3px #999;
+            z-index: 100;
+        }
+
+        .whatsapp-button i {
+            margin-top: 16px;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 24px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
     </style>
   </head>
 <body class="text-white">
@@ -81,12 +431,15 @@
             </h1>
         </div>
 
-        <div>
-            <a href="#" class="text-gray-300 hover:text-blue-400 transition-colors">
-                <i class="fas fa-search text-xl"></i>
-            </a>
-        </div>
-    </div>
+        <div class="relative">
+          <a href="#" id="searchIcon" class="text-gray-300 hover:text-blue-400 transition-colors">
+              <i class="fas fa-search text-xl"></i>
+          </a>
+          <div id="searchDropdown" class="search-dropdown">
+              <input type="text" id="searchInput" placeholder="Cari snack Anda di sini...">
+          </div>
+      </div>
+  </div>
    
 
     <div class="hero-content">
@@ -181,71 +534,120 @@
         
       
      
-<script>
-
-
+        <script>
           const SHEET_ID = "1DfDp2TDoKPs29zgp80vnC6afVIox7ik3wt_RaSJx6MU"; // ganti dengan sheet ID kamu
-function fetchSheetData(sheetName) {
-  const url = `https://opensheet.elk.sh/${SHEET_ID}/${sheetName}`;
-  return fetch(url).then(res => res.json());
-}
-
-function buatCard(snack) {
-  const card = document.createElement("div");
-  card.className = "produk glass-card";
-  card.setAttribute("data-nama", snack.nama.toLowerCase());
-  card.innerHTML = `
-    <img src="${snack.gambar}" alt="${snack.nama}">
-    <h2>${snack.nama}</h2>
-    <p>Harga: Rp ${Number(snack.harga).toLocaleString()}</p>
-    <p>${snack.deskripsi}</p>
-  `;
-  card.addEventListener('click', () => {
-    window.location.href = `detail.html?nama=${encodeURIComponent(snack.nama)}`;
-  });
-  return card;
-}
-
-function tampilkanProduk(sheetName, containerId) {
-  fetchSheetData(sheetName).then(data => {
-    const container = document.getElementById(containerId);
-    data.forEach(snack => {
-      const card = buatCard(snack);
-      container.appendChild(card);
-    });
-  }).catch(err => console.error(`Gagal load data ${sheetName}:`, err));
-}
-
-// Panggil fungsi untuk tiap kategori
-tampilkanProduk("Terlaris", "terlaris-list");
-tampilkanProduk("Snackbox", "snackbox-list");
-tampilkanProduk("Semua", "produk-list"); // Semua snack
-
-function cariProduk() {
-  const query = searchInput.value.toLowerCase();
-  const produkList = document.querySelectorAll("#produk-list .produk");
-
-  let found = false;
-  produkList.forEach(card => {
-    const nama = card.getAttribute("data-nama");
-    if (!found && nama.includes(query)) {
-      card.scrollIntoView({ behavior: "smooth", block: "center" });
-      found = true;
-    }
-  });
-
-  if (!found) {
-    alert("Produk tidak ditemukan!");
-  }
-}
-
-document.addEventListener('DOMContentLoaded', () => {
-  const searchInput = document.getElementById("searchInput");
-  const searchBtn = document.getElementById("searchBtn");
-
-  searchInput.addEventListener("input", cariProduk);
-  searchBtn.addEventListener("click", cariProduk);
-});
+          let allSnackData = []; // Menyimpan semua data snack dari sheet "Semua"
+          let terlarisSnackData = []; // Menyimpan semua data snack dari sheet "Terlaris"
+          let snackboxSnackData = []; // Menyimpan semua data snack dari sheet "Snackbox"
+  
+          async function fetchSheetData(sheetName) {
+              const url = `https://opensheet.elk.sh/${SHEET_ID}/${sheetName}`;
+              try {
+                  const response = await fetch(url);
+                  if (!response.ok) {
+                      throw new Error(`HTTP error! status: ${response.status}`);
+                  }
+                  return await response.json();
+              } catch (error) {
+                  console.error(`Gagal mengambil data dari ${sheetName}:`, error);
+                  return [];
+              }
+          }
+  
+          function buatCard(snack) {
+              const card = document.createElement("div");
+              card.className = "produk glass-card";
+              card.setAttribute("data-nama", (snack.name || snack.nama).toLowerCase());
+              card.innerHTML = `
+                  <img src="${snack.gambar}" alt="${snack.name || snack.nama}">
+                  <h2>${snack.name || snack.nama}</h2>
+                  <p>Harga: Rp ${Number(snack.harga).toLocaleString('id-ID')}</p>
+                  <p>${snack.deskripsi || ''}</p>
+              `;
+              card.addEventListener('click', () => {
+                  window.location.href = `detail.html?nama=${encodeURIComponent(snack.name || snack.nama)}`;
+              });
+              return card;
+          }
+  
+          function tampilkanProduk(data, containerId, searchTerm = '') {
+              const container = document.getElementById(containerId);
+              container.innerHTML = ''; // Kosongkan container sebelum mengisi ulang
+  
+              const lowerCaseSearchTerm = searchTerm.toLowerCase();
+  
+              const filteredData = data.filter(snack => 
+                  (snack.name && snack.name.toLowerCase().includes(lowerCaseSearchTerm)) || 
+                  (snack.nama && snack.nama.toLowerCase().includes(lowerCaseSearchTerm)) ||
+                  (snack.deskripsi && snack.deskripsi.toLowerCase().includes(lowerCaseSearchTerm))
+              );
+  
+              if (filteredData.length === 0 && searchTerm !== '') {
+                  container.innerHTML = `<p class="text-center text-gray-400 col-span-full">Produk "${searchTerm}" tidak ditemukan.</p>`;
+              } else {
+                  filteredData.forEach(snack => {
+                      const card = buatCard(snack);
+                      container.appendChild(card);
+                  });
+              }
+          }
+  
+          document.addEventListener('DOMContentLoaded', async () => {
+              // Ambil semua data sekaligus saat DOMContentLoaded
+              terlarisSnackData = await fetchSheetData("Terlaris");
+              snackboxSnackData = await fetchSheetData("Snackbox");
+              allSnackData = await fetchSheetData("Semua"); // Semua snack
+  
+              // Tampilkan produk di awal
+              tampilkanProduk(terlarisSnackData, "terlaris-list");
+              tampilkanProduk(snackboxSnackData, "snackbox-list");
+              tampilkanProduk(allSnackData, "produk-list");
+  
+              const searchIcon = document.getElementById('searchIcon');
+              const searchDropdown = document.getElementById('searchDropdown');
+              const searchInput = document.getElementById('searchInput');
+              const categoryButtons = document.querySelectorAll('.category-btn');
+  
+              searchIcon.addEventListener('click', (event) => {
+                  event.preventDefault(); // Mencegah default action dari tag <a>
+                  searchDropdown.classList.toggle('active');
+                  if (searchDropdown.classList.contains('active')) {
+                      searchInput.focus(); // Fokus ke input saat dropdown muncul
+                  } else {
+                      searchInput.value = ''; // Kosongkan input saat dropdown ditutup
+                      // Render ulang semua produk jika pencarian ditutup
+                      tampilkanProduk(terlarisSnackData, "terlaris-list");
+                      tampilkanProduk(snackboxSnackData, "snackbox-list");
+                      tampilkanProduk(allSnackData, "produk-list");
+                  }
+              });
+  
+              // Menutup dropdown jika klik di luar area
+              document.addEventListener('click', (event) => {
+                  if (!searchDropdown.contains(event.target) && !searchIcon.contains(event.target)) {
+                      searchDropdown.classList.remove('active');
+                      searchInput.value = ''; // Kosongkan input saat dropdown ditutup
+                      // Render ulang semua produk jika pencarian ditutup
+                      tampilkanProduk(terlarisSnackData, "terlaris-list");
+                      tampilkanProduk(snackboxSnackData, "snackbox-list");
+                      tampilkanProduk(allSnackData, "produk-list");
+                  }
+              });
+  
+              searchInput.addEventListener('input', () => {
+                  const searchTerm = searchInput.value;
+                  tampilkanProduk(terlarisSnackData, "terlaris-list", searchTerm);
+                  tampilkanProduk(snackboxSnackData, "snackbox-list", searchTerm);
+                  tampilkanProduk(allSnackData, "produk-list", searchTerm);
+              });
+  
+              categoryButtons.forEach(button => {
+                  button.addEventListener('click', () => {
+                      categoryButtons.forEach(btn => btn.classList.remove('active-category'));
+                      button.classList.add('active-category');
+                  });
+              });
+          });
 </script>
   
 
