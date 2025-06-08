@@ -126,20 +126,6 @@
             transform: scale(1);
         }
 
-        .tab-button {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .tab-button.active {
-            background: #005EFF;
-            border-color: #005EFF;
-        }
-        .tab-button:hover:not(.active) {
-            background: rgba(255, 255, 255, 0.15);
-        }
-
         /* Styling for the back button */
         .back-button-container {
             position: absolute;
@@ -203,7 +189,8 @@
             </a>
         </div>
 
-        <header class="text-center mb-6"> <h1 class="text-4xl md:text-5xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-white">Azzam Snack</h1>
+        <header class="text-center mb-6"> 
+            <h1 class="text-4xl md:text-5xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-white">Azzam Snack</h1>
             <p class="text-xl text-blue-200">Buat Sendiri Pesanan Snack Anda</p>
         </header>
         
@@ -233,16 +220,6 @@
             </div>
         </div>
         
-        <div class="mb-10">
-            <h2 class="text-2xl font-semibold mb-6">Pilih Snack Anda</h2>
-            <div class="flex gap-4 mb-6">
-                <button id="show-terlaris" class="tab-button px-6 py-3 rounded-lg font-semibold active">Terlaris</button>
-                <button id="show-semua" class="tab-button px-6 py-3 rounded-lg font-semibold">Semua Snack</button>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="snack-container">
-            </div>
-        </div>
-        
         <div class="total-price rounded-xl p-6 mb-6">
             <div class="flex justify-between items-center">
                 <div>
@@ -251,248 +228,230 @@
                 </div>
                 <div class="text-right">
                     <p class="text-2xl font-bold" id="total-price">Rp 0</p>
+                    <p class="text-sm text-blue-200" id="biaya-kardus-text" style="display: none;">(+Rp 1.000 Biaya Kardus)</p>
                 </div>
             </div>
         </div>
-        
+
         <button id="save-order" class="save-button w-full py-4 rounded-xl text-white font-bold text-xl flex items-center justify-center gap-3 mb-10">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
             </svg>
             Simpan Pesanan
         </button>
+
+        <div class="mb-10">
+            <h2 class="text-2xl font-semibold mb-6">Pilih Snack Anda</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="snack-container">
+            </div>
+        </div>
     </div>
 
     <script>
-        const SHEET_ID = "1DfDp2TDoKPs29zgp80vnC6afVIox7ik3wt_RaSJx6MU"; 
-        
-        let selectedPackage = 4; 
-        let selectedSnacks = new Map(); 
-        let allSnackData = []; 
-        let terlarisSnackData = []; 
-        let semuaSnackData = [];   
-        let currentSheet = "Terlaris"; 
-        
-        async function fetchSheetData(sheetName) {
-            const url = `https://opensheet.elk.sh/${SHEET_ID}/${sheetName}`;
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return await response.json();
-            } catch (error) {
-                console.error(`Error fetching data from ${sheetName}:`, error);
-                return []; 
-            }
-        }
-        
-        function buatCard(snack, index) { 
-            const id = String(index); 
-            const card = document.createElement('div');
-            card.className = 'snack-card rounded-xl p-6 relative';
-            card.dataset.id = id; 
-            card.dataset.harga = snack.harga; 
-            card.innerHTML = `
-                <div class="flex justify-between items-center">
-                    <h3 class="text-xl font-medium">${snack.name || snack.nama}</h3>
-                    <p class="font-semibold">Rp ${Number(snack.harga).toLocaleString('id-ID')}</p>
-                </div>
-                <div class="quantity-badge" id="qty-${id}">0</div>
-            `;
-        
-            card.addEventListener('click', function (event) {
-                let currentQuantity = selectedSnacks.get(id) || 0;
-                const totalSelectedCount = Array.from(selectedSnacks.values()).reduce((sum, qty) => sum + qty, 0);
+    const SHEET_ID = "1DfDp2TDoKPs29zgp80vnC6afVIox7ik3wt_RaSJx6MU";
+    const BIAYA_KARDUS = 1000;
 
-                if (event.ctrlKey || event.shiftKey) { 
-                    if (currentQuantity > 0) {
-                        currentQuantity--;
-                        if (currentQuantity === 0) {
-                            selectedSnacks.delete(id);
-                        } else {
-                            selectedSnacks.set(id, currentQuantity);
-                        }
-                    }
-                } else if (totalSelectedCount < selectedPackage) { 
-                    currentQuantity++;
-                    selectedSnacks.set(id, currentQuantity);
+    let selectedPackage = 4;
+    let selectedSnacks = new Map(); 
+    let allAvailableSnackData = []; 
+
+    async function fetchSheetData(sheetName) {
+        const url = `https://opensheet.elk.sh/${SHEET_ID}/${sheetName}`;
+        try {
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return await response.json();
+        } catch (error) {
+            console.error(`Error fetching data from ${sheetName}:`, error);
+            return [];
+        }
+    }
+
+    function createSnackCard(snack) {
+        const id = (snack.name || snack.nama).toLowerCase().replace(/\s/g, '-');
+        const card = document.createElement('div');
+        card.className = 'snack-card rounded-xl p-6 relative';
+        card.dataset.id = id;
+        card.dataset.harga = snack.harga;
+        card.dataset.snackName = snack.name || snack.nama;
+        card.innerHTML = `
+            <div class="flex justify-between items-center">
+                <h3 class="text-xl font-medium">${snack.name || snack.nama}</h3>
+                <p class="font-semibold">Rp ${Number(snack.harga).toLocaleString('id-ID')}</p>
+            </div>
+            <div class="quantity-badge" id="qty-${id}">0</div>
+        `;
+
+        card.addEventListener('click', function () {
+            const currentSnackId = this.dataset.id;
+            let currentQuantity = selectedSnacks.get(currentSnackId) || 0;
+            const totalSelectedCount = Array.from(selectedSnacks.values()).reduce((sum, qty) => sum + qty, 0);
+
+            if (currentQuantity === 0) { 
+                if (totalSelectedCount < selectedPackage) { 
+                    selectedSnacks.set(currentSnackId, 1); 
                 } else {
                     alert(`Anda telah memilih ${selectedPackage} snack. Tidak bisa menambah lagi untuk paket ini.`);
-                    return; 
+                    return;
                 }
-                
-                updateTotals();
-                updateSnackSelectionUI(); 
-            });
-        
-            return card;
-        }
-        
-        function renderSnacks(data) {
-            const container = document.getElementById('snack-container');
-            container.innerHTML = '';
-            
-            // Filter data berdasarkan input pencarian
-            const searchTerm = document.getElementById('snackSearchInput').value.toLowerCase();
-            const filteredData = data.filter(snack => 
-                (snack.name && snack.name.toLowerCase().includes(searchTerm)) || 
-                (snack.nama && snack.nama.toLowerCase().includes(searchTerm))
-            );
+            } else { 
+                selectedSnacks.delete(currentSnackId); 
+            }
 
-            // Perbarui allSnackData dengan data yang difilter saat ini untuk perhitungan total
-            // Penting: Menggunakan data asli (terlarisSnackData atau semuaSnackData) sebagai sumber indeks
-            // agar selectedSnacks (yang menyimpan indeks global) tetap konsisten.
-            // allSnackData akan menjadi referensi ke data yang sedang ditampilkan (terlaris/semua).
-            allSnackData = data; 
-
-            filteredData.forEach((snack, index) => { 
-                // Cari index asli snack dalam data mentah (terlarisSnackData atau semuaSnackData)
-                const originalIndex = allSnackData.findIndex(s => (s.name === snack.name || s.nama === snack.nama) && s.harga === snack.harga);
-                if (originalIndex !== -1) {
-                    const card = buatCard(snack, originalIndex); 
-                    container.appendChild(card);
-                }
-            });
-        
             updateTotals();
-            updateSnackSelectionUI(); 
-        }
-        
-        function updatePackageSelection() {
-            document.querySelectorAll('.package-option').forEach(option => {
-                option.classList.remove('selected');
-                if (parseInt(option.dataset.value) === selectedPackage) {
-                    option.classList.add('selected');
-                }
-            });
-        }
-        
-        function updateSnackSelectionUI() {
-            document.querySelectorAll('.snack-card').forEach(card => {
-                const id = card.dataset.id; 
-                const quantity = selectedSnacks.get(id) || 0;
-                const quantityBadge = card.querySelector(`#qty-${id}`);
-        
-                if (quantity > 0) {
-                    card.classList.add('has-quantity');
-                    quantityBadge.textContent = quantity;
-                    quantityBadge.style.opacity = '1';
-                    quantityBadge.style.transform = 'scale(1)';
-                } else {
-                    card.classList.remove('has-quantity');
-                    quantityBadge.style.opacity = '0';
-                    quantityBadge.style.transform = 'scale(0)';
-                    quantityBadge.textContent = '0'; 
-                }
-            });
-        }
-        
-        function updateTotals() {
-            let totalSelectedCount = Array.from(selectedSnacks.values()).reduce((sum, qty) => sum + qty, 0);
-            document.getElementById('selected-count').textContent = `${totalSelectedCount} dari ${selectedPackage} snack dipilih`;
-        
-            let totalPrice = 0;
-            selectedSnacks.forEach((quantity, indexString) => { 
-                const index = parseInt(indexString); 
-                const snack = allSnackData[index]; 
-                if (snack) totalPrice += Number(snack.harga) * quantity;
-            });
-        
-            document.getElementById('total-price').textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
-        }
-        
-        function saveOrder() {
-            let totalSelectedCount = Array.from(selectedSnacks.values()).reduce((sum, qty) => sum + qty, 0);
-            
-            if (totalSelectedCount === 0) {
-                alert('Silakan pilih snack terlebih dahulu!');
-                return;
-            }
-        
-            if (totalSelectedCount !== selectedPackage) {
-                alert(`Anda harus memilih tepat ${selectedPackage} snack untuk melanjutkan pesanan. Jumlah snack yang dipilih saat ini adalah ${totalSelectedCount}.`);
-                return;
-            }
-        
-            let orderMessage = `*Pesanan Azzam Snack*\n\n`;
-            orderMessage += `*Snack Box ${selectedPackage}*\n\n`;
-        
-            let totalPrice = 0;
-            let snackList = [];
-        
-            selectedSnacks.forEach((quantity, indexString) => { 
-                const index = parseInt(indexString); 
-                const snack = allSnackData[index]; 
-                if (snack) {
-                    snackList.push(`${snack.name || snack.nama} (${quantity}x) - Rp ${(Number(snack.harga) * quantity).toLocaleString('id-ID')}`);
-                    totalPrice += Number(snack.harga) * quantity;
-                }
-            });
-        
-            orderMessage += snackList.join('\n');
-            orderMessage += `\n\n*Total: Rp ${totalPrice.toLocaleString('id-ID')}*`;
-            
-            const encoded = encodeURIComponent(orderMessage);
-            const noWA = "6285141801523"; 
-            
-            window.open(`https://wa.me/${noWA}?text=${encoded}`, '_blank');
-        }
-        
-        function updateTabButtons(activeTabId) {
-            document.querySelectorAll('.tab-button').forEach(button => {
-                button.classList.remove('active');
-            });
-            document.getElementById(activeTabId).classList.add('active');
-        }
-        
-        document.addEventListener('DOMContentLoaded', async function () {
-            terlarisSnackData = await fetchSheetData("Terlaris"); 
-            semuaSnackData = await fetchSheetData("Semua");
-
-            renderSnacks(terlarisSnackData);
-            updateTabButtons('show-terlaris');
-            
-            document.querySelectorAll('.package-option').forEach(option => {
-                option.addEventListener('click', () => {
-                    selectedPackage = parseInt(option.dataset.value);
-                    selectedSnacks.clear(); 
-                    updatePackageSelection();
-                    updateSnackSelectionUI(); 
-                    updateTotals();
-                });
-            });
-
-            document.getElementById('show-terlaris').addEventListener('click', () => {
-                if (currentSheet !== "Terlaris") {
-                    currentSheet = "Terlaris";
-                    selectedSnacks.clear(); 
-                    renderSnacks(terlarisSnackData);
-                    updateTabButtons('show-terlaris');
-                }
-            });
-
-            document.getElementById('show-semua').addEventListener('click', () => {
-                if (currentSheet !== "Semua") {
-                    currentSheet = "Semua";
-                    selectedSnacks.clear(); 
-                    renderSnacks(semuaSnackData);
-                    updateTabButtons('show-semua');
-                }
-            });
-
-            // Event listener untuk kotak pencarian
-            document.getElementById('snackSearchInput').addEventListener('input', () => {
-                if (currentSheet === "Terlaris") {
-                    renderSnacks(terlarisSnackData);
-                } else {
-                    renderSnacks(semuaSnackData);
-                }
-            });
-        
-            document.getElementById('save-order').addEventListener('click', saveOrder);
-            updatePackageSelection();
+            updateSnackSelectionUI();
         });
+
+        return card;
+    }
+
+    function renderSnacks(dataToRender) {
+        const container = document.getElementById('snack-container');
+        container.innerHTML = '';
+
+        const searchTerm = document.getElementById('snackSearchInput').value.toLowerCase();
+        const filteredData = dataToRender.filter(snack =>
+            (snack.name && snack.name.toLowerCase().includes(searchTerm)) ||
+            (snack.nama && snack.nama.toLowerCase().includes(searchTerm))
+        );
+
+        filteredData.forEach((snack) => {
+            const card = createSnackCard(snack);
+            container.appendChild(card);
+        });
+
+        updateTotals();
+        updateSnackSelectionUI();
+    }
+
+    function updatePackageSelection() {
+        document.querySelectorAll('.package-option').forEach(option => {
+            option.classList.remove('selected');
+            if (parseInt(option.dataset.value) === selectedPackage) {
+                option.classList.add('selected');
+            }
+        });
+    }
+
+    function updateSnackSelectionUI() {
+        document.querySelectorAll('.snack-card').forEach(card => {
+            const id = card.dataset.id;
+            const quantity = selectedSnacks.get(id) || 0;
+            const quantityBadge = card.querySelector(`#qty-${id}`);
+
+            if (quantity > 0) {
+                card.classList.add('has-quantity');
+                quantityBadge.textContent = quantity;
+                quantityBadge.style.opacity = '1';
+                quantityBadge.style.transform = 'scale(1)';
+            } else {
+                card.classList.remove('has-quantity');
+                quantityBadge.style.opacity = '0';
+                quantityBadge.style.transform = 'scale(0)';
+                quantityBadge.textContent = '0';
+            }
+        });
+    }
+
+    function updateTotals() {
+        let totalSelectedCount = Array.from(selectedSnacks.values()).reduce((sum, qty) => sum + qty, 0);
+        document.getElementById('selected-count').textContent = `${totalSelectedCount} dari ${selectedPackage} snack dipilih`;
+
+        let totalPrice = 0;
+        selectedSnacks.forEach((quantity, id) => {
+            const snack = allAvailableSnackData.find(s => (s.name || s.nama).toLowerCase().replace(/\s/g, '-') === id);
+            if (snack) {
+                totalPrice += Number(snack.harga) * quantity;
+            }
+        });
+
+        const biayaKardusElement = document.getElementById('biaya-kardus-text');
+        if (selectedPackage === 4 || selectedPackage === 5) {
+            totalPrice += BIAYA_KARDUS;
+            biayaKardusElement.style.display = 'block';
+        } else {
+            biayaKardusElement.style.display = 'none';
+        }
+
+        document.getElementById('total-price').textContent = `Rp ${totalPrice.toLocaleString('id-ID')}`;
+    }
+
+    function saveOrder() {
+        let totalSelectedCount = Array.from(selectedSnacks.values()).reduce((sum, qty) => sum + qty, 0);
+
+        if (totalSelectedCount === 0) {
+            alert('Silakan pilih snack terlebih dahulu!');
+            return;
+        }
+
+        if (totalSelectedCount !== selectedPackage) {
+            alert(`Anda harus memilih tepat ${selectedPackage} snack untuk melanjutkan pesanan. Jumlah snack yang dipilih saat ini adalah ${totalSelectedCount}.`);
+            return;
+        }
+
+        let orderMessage = `*Pesanan Azzam Snack*\n\n`;
+        orderMessage += `*Snack Box ${selectedPackage}*\n\n`;
+
+        let totalPrice = 0;
+        let snackList = [];
+
+        selectedSnacks.forEach((quantity, id) => {
+            const snack = allAvailableSnackData.find(s => (s.name || s.nama).toLowerCase().replace(/\s/g, '-') === id);
+            if (snack) {
+                snackList.push(`${snack.name || snack.nama} (${quantity}x) - Rp ${(Number(snack.harga) * quantity).toLocaleString('id-ID')}`);
+                totalPrice += Number(snack.harga) * quantity;
+            }
+        });
+
+        orderMessage += snackList.join('\n');
+        
+        if (selectedPackage === 4 || selectedPackage === 5) {
+            totalPrice += BIAYA_KARDUS;
+            orderMessage += `\nBiaya Kardus: Rp ${BIAYA_KARDUS.toLocaleString('id-ID')}`;
+        }
+        
+        orderMessage += `\n\n*Total: Rp ${totalPrice.toLocaleString('id-ID')}*`;
+
+        const encoded = encodeURIComponent(orderMessage);
+        const noWA = "6285141801523";
+
+        window.open(`https://wa.me/${noWA}?text=${encoded}`, '_blank');
+    }
+
+    document.addEventListener('DOMContentLoaded', async function () {
+        const terlarisSnackData = await fetchSheetData("Terlaris");
+        const semuaSnackData = await fetchSheetData("Semua");
+        
+        const uniqueSnacks = new Map();
+        [...terlarisSnackData, ...semuaSnackData].forEach(snack => {
+            const snackName = (snack.name || snack.nama).toLowerCase();
+            if (!uniqueSnacks.has(snackName)) {
+                uniqueSnacks.set(snackName, snack);
+            }
+        });
+        allAvailableSnackData = Array.from(uniqueSnacks.values());
+
+        renderSnacks(allAvailableSnackData);
+
+        document.querySelectorAll('.package-option').forEach(option => {
+            option.addEventListener('click', () => {
+                selectedPackage = parseInt(option.dataset.value);
+                selectedSnacks.clear(); 
+                updatePackageSelection();
+                updateSnackSelectionUI();
+                updateTotals(); 
+            });
+        });
+
+        document.getElementById('snackSearchInput').addEventListener('input', () => {
+            renderSnacks(allAvailableSnackData);
+        });
+
+        document.getElementById('save-order').addEventListener('click', saveOrder);
+        updatePackageSelection();
+    });
     </script>
 </body>
 </html>
